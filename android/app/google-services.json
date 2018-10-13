@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "1003014787803",
+    "firebase_url": "https://baby-names-app-db-5b919.firebaseio.com",
+    "project_id": "baby-names-app-db-5b919",
+    "storage_bucket": "baby-names-app-db-5b919.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003014787803:android:74f9b88f0d334e46",
+        "android_client_info": {
+          "package_name": "uk.ac.union.babynames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003014787803-d0p2il3qf7qmf038gk5lpf7sr1bom1ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRUddPG4-f-NV3RoZS27ODE3qZbsETIsU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003014787803:android:cbba0044b414a635",
+        "android_client_info": {
+          "package_name": "uk.ac.union.icfantasyfootball"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003014787803-d0p2il3qf7qmf038gk5lpf7sr1bom1ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRUddPG4-f-NV3RoZS27ODE3qZbsETIsU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
