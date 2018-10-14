@@ -39,7 +39,7 @@ class SubView extends StatelessWidget {
               ),
               Container(
                 color: Colors.green,
-                child: Text(player.firstName.substring(0,1) + ". " + player.lastName, textAlign: TextAlign.center, style: Styles.playerLabel,),
+                child: Text(player.firstName.substring(0,1) + ". " + player.lastName, textAlign: TextAlign.center, style: Styles.playerLabel, softWrap: false, overflow: TextOverflow.fade,),
               ),
               Container(
                 color: Colors.green,
@@ -56,7 +56,7 @@ class SubView extends StatelessWidget {
             ),
             Container(
               color: Colors.green,
-              child: Text(player.firstName.substring(0,1) + ". " + player.lastName, textAlign: TextAlign.center,),
+              child: Text(player.firstName.substring(0,1) + ". " + player.lastName, textAlign: TextAlign.center, softWrap: false, overflow: TextOverflow.fade,),
             ),
             Container(
               color: Colors.green,

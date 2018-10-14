@@ -71,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
                         future: InternetAsync().fetchUser(context, username, password),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.done) {
-                            return signIn;
+                            return Text("Sign In");
                           }
 
                           // By default, show a loading spinner

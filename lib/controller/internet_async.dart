@@ -156,4 +156,53 @@ class InternetAsync {
       Scaffold.of(context).showSnackBar(snackBar);
     }
   }
+
+  Future addTeam(context, Team team) async {
+    String message ="";
+    http.Response response;
+    try {
+      response = await http.get(
+          "https://union.ic.ac.uk/acc/football/android_connect/add_team.php?user_id="
+              + User
+              .get()
+              .userId
+              .toString() + "&name=" + team.name + "&owner=" + team.owner +
+              "&price=" + team.price.toString()
+              + "&goal=" + team.playerAt(0) + "&player1=" + team.playerAt(1) +
+              "&player2=" + team.playerAt(2)
+              + "&player3=" + team.playerAt(3) + "&player4=" +
+              team.playerAt(4) + "&player5=" + team.playerAt(5)
+              + "&player6=" + team.playerAt(6) + "&player7=" +
+              team.playerAt(7) + "&player8=" + team.playerAt(8)
+              + "&player9=" + team.playerAt(9) + "&player10=" +
+              team.playerAt(10) + "&sub_goal=" + team.playerAt(11)
+              + "&sub1=" + team.playerAt(12) + "&sub2=" + team.playerAt(13) +
+              "&sub3=" + team.playerAt(14)
+              + "&sub4=" + team.playerAt(15));
+      if (response.statusCode == 200) {
+        //get the teamId of the newly created team
+        int teamId = int.parse(json.decode(response.body)[0]['@last_id_in_teams']);
+        team.teamId = teamId;
+        TeamLab.get().teams.add(team);
+        User.get().teamId = teamId;
+        User.get().team = team;
+        message = response.body.toString();
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (BuildContext context) {
+          return NavigationDrawer();
+        }));
+      } else {
+        message = 'Could not add team, try again later';
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    if (message != "") {
+      final snackBar = SnackBar(
+          content: Text(message),
+          duration: Duration(seconds: 2)
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
 }

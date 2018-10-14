@@ -20,11 +20,11 @@ class Team {
 
 
    Team(this._teamId, this._name, this._owner, this._price, this._points, this._pointsWeek,
-       this._defNum, this._midNum, this._fwdNum, goalId, player1Id,
-       player2Id, player3Id, player4Id, player5Id,
-       player6Id, player7Id, player8Id, player9Id,
-       player10Id, subGoalId, sub1Id, sub2Id, sub3Id,
-       sub4Id) {
+       this._defNum, this._midNum, this._fwdNum, int goalId, int player1Id,
+       int player2Id, int player3Id, int player4Id, int player5Id,
+       int player6Id, int player7Id, int player8Id, int player9Id,
+       int player10Id, int subGoalId, int sub1Id, int sub2Id, int sub3Id,
+       int sub4Id) {
      PlayerLab playerLab = PlayerLab.get();
      _players.add(playerLab.getPlayer(goalId));
      _players.add(playerLab.getPlayer(player1Id));
@@ -53,6 +53,27 @@ class Team {
       int.parse(json['sub1']), int.parse(json['sub2']), int.parse(json['sub3']),int.parse(json['sub4']));
    }
 
+   //the players are from selected list are rearranged to fit the team sturcture
+   Team.fromSelectedList(List<Player> players, this._name, this._owner, this._price) :
+         _teamId = 0, _points = 0, _pointsWeek = 0, _defNum = 3, _midNum = 4, _fwdNum = 3 {
+     _players.add(players[0]);
+     _players.add(players[2]);
+     _players.add(players[3]);
+     _players.add(players[4]);
+     _players.add(players[7]);
+     _players.add(players[8]);
+     _players.add(players[9]);
+     _players.add(players[10]);
+     _players.add(players[12]);
+     _players.add(players[13]);
+     _players.add(players[14]);
+     _players.add(players[1]);
+     _players.add(players[15]);
+     _players.add(players[11]);
+     _players.add(players[5]);
+     _players.add(players[6]);
+   }
+
    factory Team.fromTeamsJson(Map<String, dynamic> json) {
      return Team(int.parse(json['team_id']), json['name'], json['owner'], double.parse(json['price']), int.parse(json['points']),
          int.parse(json['points_week']), int.parse(json['def_num']), int.parse(json['mid_num']), int.parse(json['fwd_num']),
@@ -79,6 +100,10 @@ class Team {
    String get name => _name;
 
    int get teamId => _teamId;
+
+   set teamId(int value) {
+     _teamId = value;
+   }
 
    String playerAt (int index) => players[index].playerID.toString();
 

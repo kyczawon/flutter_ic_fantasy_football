@@ -49,7 +49,7 @@ class _PlayerViewState extends State<PlayerView> {
                 ),
                 Container(
                   color: Colors.green,
-                  child: Text(widget.player.firstName.substring(0,1) + ". " + widget.player.lastName, textAlign: TextAlign.center,),
+                  child: Text(widget.player.firstName.substring(0,1) + ". " + widget.player.lastName, textAlign: TextAlign.center, softWrap: false, overflow: TextOverflow.fade,),
                 ),
                 Container(
                   color: Colors.green,

@@ -17,7 +17,7 @@ class User {
   User(this._userId, this._teamId, this._username, this._adminedTeam,
       this._isSuperAdmin);
 
-  User.fromJson(Map<String, dynamic> json, String username) {
+  User. fromJson(Map<String, dynamic> json, String username) {
     create(int.parse(json['user_id']), int.parse(json['team_id']), username, int.parse(json['admined_team']), json['is_super_admin']==1);
   }
 
@@ -54,6 +54,10 @@ class User {
 
   set team(Team value) {
     _team = value;
+  }
+
+  set teamId(int value) {
+    _teamId = value;
   }
 
 

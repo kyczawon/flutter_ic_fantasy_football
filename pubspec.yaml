@@ -4,7 +4,6 @@ description: IC Fantasy Football
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.7.3
   validate: ^1.7.0
 
   # The following adds the Cupertino Icons font to your application.
