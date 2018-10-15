@@ -37,7 +37,7 @@ class _PlayerDisabledDragViewState extends State<PlayerDisabledDragView> {
                   ),
                   Container(
                     color: Colors.green,
-                    child: Text(widget.player.points.toString(), textAlign: TextAlign.center),
+                    child: Text(widget.player.points.toString() + "|" + widget.player.pointsWeek.toString(), textAlign: TextAlign.center),
                   ),
                 ],
               )

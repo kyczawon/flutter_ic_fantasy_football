@@ -49,10 +49,10 @@ class _TeamDisplayViewState extends State<TeamDisplayView> {
                   children: <Widget>[
                     Expanded(
                         flex: 1,
-                        child: Text("Points 10", style: Styles.whiteText)),
+                        child: Text("Points ${team.points}", style: Styles.whiteText)),
                     Expanded(
                         flex: 1,
-                        child: Text("This week 20", style: Styles.whiteText)),
+                        child: Text("This week ${team.getCurrentWeeklyPoints()}", style: Styles.whiteText)),
                   ],
                 ),
               ),
@@ -60,11 +60,11 @@ class _TeamDisplayViewState extends State<TeamDisplayView> {
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
-                        child: Image.asset("assets/bench.jpg", fit: BoxFit.fitWidth, alignment: Alignment.bottomLeft,)
+                        child: Image.asset("assets/pitch.jpg", fit: BoxFit.fitWidth, alignment: Alignment.topLeft,)
                     ),
                     Positioned.fill(
-                        child: Image.asset("assets/pitch.jpg", fit: BoxFit.fitWidth, alignment: Alignment.topLeft,)
-                    )
+                        child: Image.asset("assets/bench.jpg", fit: BoxFit.fitWidth, alignment: Alignment.bottomLeft,)
+                    ),
                   ]
                 )
               ),
@@ -153,7 +153,7 @@ class _TeamDisplayViewState extends State<TeamDisplayView> {
                 )
               ),
               Expanded(
-                flex: 4,
+                flex: 5,
                 child: Container()
               ),
             ],

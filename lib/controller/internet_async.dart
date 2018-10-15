@@ -13,6 +13,7 @@ import 'package:ic_fantasy_football/controller/team_lab.dart';
 import 'package:ic_fantasy_football/create_team_view.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'package:flushbar/flushbar.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -195,7 +196,7 @@ class InternetAsync {
         message = 'Could not add team, try again later';
       }
     } catch (e) {
-      print(e.toString());
+      message = 'Could not add team, try again later';
     }
     if (message != "") {
       final snackBar = SnackBar(
@@ -205,4 +206,61 @@ class InternetAsync {
       Scaffold.of(context).showSnackBar(snackBar);
     }
   }
+
+  addUser(context, String username, String email, String password) async {
+    String message ="";
+    http.Response response;
+    try {
+      response = await http.get("https://union.ic.ac.uk/acc/football/android_connect/check_username&email.php?username=" + username
+      + "&email=" + email);
+      if (response.statusCode == 200) {
+        // If the call to the server was successful, parse the JSON to get teams data
+        if (response.body.toString() == 'success') {
+          addUserToDB(context, username, email, password);
+        } else {
+          message = response.body.toString();
+        }
+      } else {
+        message = 'Cannot add user';
+      }
+    } catch (e) {
+      message = 'Cannot add user';
+    }
+    if (message != "") {
+      final snackBar = SnackBar(
+          content: Text(message),
+          duration: Duration(seconds: 2)
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  addUserToDB(context, String username, String email, String password) async {
+    String message ="";
+    http.Response response;
+    try {
+      response = await http.get("https://union.ic.ac.uk/acc/football/android_connect/add_user.php?username=" + username
+          + "&email=" + email + "&password=" + password);
+      if (response.statusCode == 200) {
+        // If the call to the server was successful, parse the JSON to get teams data
+        if (response.body.toString() == 'success') {
+          message = "Click on the link in the confirmation email and log in";
+          Navigator.pop(context);
+        } else {
+          message = response.body.toString();
+        }
+      } else {
+        message = 'Cannot add user to db';
+      }
+    } catch (e) {
+      message = 'Cannot add user to db';
+    }
+    if (message != "") {
+      Flushbar()
+        ..message = message
+        ..duration = Duration(seconds: 5)
+        ..show(context);
+    }
+  }
+
 }

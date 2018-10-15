@@ -47,10 +47,10 @@ class _TeamOtherDisplayViewState extends State<TeamOtherDisplayView> {
                       children: <Widget>[
                         Expanded(
                             flex: 1,
-                            child: Text("Points 10", style: Styles.whiteText)),
+                            child: Text("Points ${widget.team.points}", style: Styles.whiteText)),
                         Expanded(
                             flex: 1,
-                            child: Text("This week 20", style: Styles.whiteText)),
+                            child: Text("This week ${widget.team.getCurrentWeeklyPoints()}", style: Styles.whiteText)),
                       ],
                     ),
                   ),
@@ -58,11 +58,11 @@ class _TeamOtherDisplayViewState extends State<TeamOtherDisplayView> {
                       child: Stack(
                           children: <Widget>[
                             Positioned.fill(
-                                child: Image.asset("assets/bench.jpg", fit: BoxFit.fitWidth, alignment: Alignment.bottomLeft,)
+                                child: Image.asset("assets/pitch.jpg", fit: BoxFit.fitWidth, alignment: Alignment.topLeft,)
                             ),
                             Positioned.fill(
-                                child: Image.asset("assets/pitch.jpg", fit: BoxFit.fitWidth, alignment: Alignment.topLeft,)
-                            )
+                                child: Image.asset("assets/bench.jpg", fit: BoxFit.fitWidth, alignment: Alignment.bottomLeft,)
+                            ),
                           ]
                       )
                   ),
@@ -127,7 +127,7 @@ class _TeamOtherDisplayViewState extends State<TeamOtherDisplayView> {
                       )
                   ),
                   Expanded(
-                      flex: 4,
+                      flex: 1,
                       child: Container()
                   ),
                 ],
