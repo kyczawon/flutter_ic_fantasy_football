@@ -11,6 +11,8 @@ import 'package:ic_fantasy_football/model/app_state.dart';
 import 'package:ic_fantasy_football/controller/player_lab.dart';
 import 'package:ic_fantasy_football/controller/team_lab.dart';
 import 'package:ic_fantasy_football/create_team_view.dart';
+import 'package:ic_fantasy_football/reset_password_view.dart';
+import 'package:ic_fantasy_football/login_view.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flushbar/flushbar.dart';
@@ -260,6 +262,95 @@ class InternetAsync {
         ..message = message
         ..duration = Duration(seconds: 5)
         ..show(context);
+    }
+  }
+
+  sendEmailResetPassword(context, String email) async {
+    String message ="";
+    http.Response response;
+    try {
+      response = await http.get("https://union.ic.ac.uk/acc/football/android_connect/send_email.php?email=" + email);
+      if (response.statusCode == 200) {
+        // If the call to the server was successful, parse the JSON to get teams data
+        if (response.body.toString() == 'success') {
+          message = 'Check your email for a reset code';
+        } else{
+          message = response.body.toString();
+        }
+      } else {
+        message = 'Cannot send email to reset password, try again later';
+      }
+    } catch (e) {
+      message = 'Cannot send email to reset password,, try again later';
+    }
+    if (message != "") {
+      final snackBar = SnackBar(
+          content: Text(message),
+          duration: Duration(seconds: 2)
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  checkPasswordResetCode(context, String email, String resetCode) async {
+    String message ="";
+    http.Response response;
+    try {
+      response = await http.get("https://union.ic.ac.uk/acc/football/android_connect/check_passcode.php?email=" + email
+          + "&passcode=" + resetCode);
+      if (response.statusCode == 200) {
+        // If the call to the server was successful, parse the JSON to get teams data
+        if (response.body.toString() == 'success') {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (BuildContext context) {
+            return ResetPasswordView(email: email,);
+          }));
+        } else {
+          message = response.body.toString();
+        }
+      } else {
+        message = 'Cannot reset password, try again later';
+      }
+    } catch (e) {
+      message = 'Cannot reset password, try again later';
+    }
+    if (message != "") {
+      final snackBar = SnackBar(
+          content: Text(message),
+          duration: Duration(seconds: 2)
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  resetPassword(context, String email, String password) async {
+    String message ="";
+    http.Response response;
+    try {
+      response = await http.get("https://union.ic.ac.uk/acc/football/android_connect/change_password.php?email=" + email
+          + "&password=" + password);
+      if (response.statusCode == 200) {
+        // If the call to the server was successful, parse the JSON to get teams data
+        if (response.body.toString() == 'success') {
+          message = 'You succesfully reset your password';
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (BuildContext context) {
+            return LoginView();
+          }));
+        } else {
+          message = response.body.toString();
+        }
+      } else {
+        message = 'Cannot reset password, try again later';
+      }
+    } catch (e) {
+      message = 'Cannot reset password, try again later';
+    }
+    if (message != "") {
+      Flushbar()
+      ..message = message
+      ..duration = Duration(seconds: 5)
+      ..show(context);
     }
   }
 
