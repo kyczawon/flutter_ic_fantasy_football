@@ -33,7 +33,7 @@ class _PlayersDetailsViewState extends State<PlayersDetailsView> {
       _sortAsc = ascending ;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
