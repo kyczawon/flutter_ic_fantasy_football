@@ -5,7 +5,7 @@ import 'package:ic_fantasy_football/team_display_view.dart';
 import 'package:ic_fantasy_football/teams_details_view.dart';
 import 'package:ic_fantasy_football/players_details_view.dart';
 import 'package:ic_fantasy_football/leaderboard_view.dart';
-import 'package:ic_fantasy_football/test.dart';
+import 'package:ic_fantasy_football/set_team_stats_start_view.dart';
 import 'package:ic_fantasy_football/login_view.dart';
 import 'package:ic_fantasy_football/model/user.dart';
 
@@ -20,11 +20,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    Function updateFragment = (Widget widget) {
-      setState(() {
-        widgetForBody = widget;
-      });
-    };
     return WillPopScope(
       onWillPop: () async => false,
       child: new Scaffold(
@@ -88,14 +83,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 //    android:icon="@drawable/ic_exit_to_app"
 //    android:icon="@drawable/ic_add"
 //    android:icon="@drawable/ic_menu_send"
-                new Divider(),
-                new ListTile(
+                  Divider(),
+                  new ListTile(
                   title: new Text("Log out"),
                   leading: new Icon(Icons.exit_to_app),
                   onTap: () {
                     User.get().clearUser();
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {return LoginView();}));
-      }
+                    }
                   ,
                 ),
                 new ListTile(
@@ -103,6 +98,20 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   leading: new Icon(Icons.cancel),
                   onTap: () => Navigator.pop(context),
                 ),
+                (User.get().adminedTeam != 0) ? Divider() : Container(),
+                (User.get().adminedTeam != 0) ?
+                  Padding(padding: EdgeInsets.only(left: 10),child: Text("Admin", style: TextStyle(fontWeight: FontWeight.bold),))
+                  : Container(),
+                (User.get().adminedTeam != 0) ? new ListTile(
+                    title: new Text("Set Team Stats"),
+                    leading: new Icon(Icons.add_box),
+                    onTap: () {
+                      setState(() {
+                        widgetForBody = SetTeamStatsStartView();
+                      });
+                      Navigator.pop(context);
+                    }
+                ) : Container(),
               ],
             ),
           ),

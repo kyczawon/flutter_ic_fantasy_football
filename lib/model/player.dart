@@ -2,7 +2,6 @@
 // If you get hold of this code you probably found it on github ;)
 
 class Player {
-
   int _playerID;
   String _firstName;
   String _lastName;
@@ -164,7 +163,5 @@ class Player {
     _playerID = value;
   }
 
-
-
-
+  String get fullName => _firstName + " " + _lastName;
 }
