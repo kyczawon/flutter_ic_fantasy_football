@@ -5,7 +5,6 @@
 import 'package:flutter/material.dart';
 import 'package:ic_fantasy_football/controller/player_lab.dart';
 import 'package:ic_fantasy_football/model/player.dart';
-import 'package:ic_fantasy_football/team_other_display_view.dart';
 
 class PlayersDetailsView extends StatefulWidget {
 
@@ -33,6 +32,13 @@ class _PlayersDetailsViewState extends State<PlayersDetailsView> {
       _sortAsc = ascending ;
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _sort<String>((Player p) => p.firstName,
+        _sortColumnIndex, _sortAsc);
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -41,6 +47,8 @@ class _PlayersDetailsViewState extends State<PlayersDetailsView> {
         children: <Widget>[
           PaginatedDataTable(
             availableRowsPerPage: [10,20,50],
+            columnSpacing: 1.0,
+            horizontalMargin: 1.0,
             rowsPerPage: _rowsPerPage,
             onRowsPerPageChanged: (int value) { setState(() { _rowsPerPage = value; }); },
             sortColumnIndex: _sortColumnIndex,

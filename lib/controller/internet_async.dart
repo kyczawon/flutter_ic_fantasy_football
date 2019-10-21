@@ -27,12 +27,13 @@ class InternetAsync {
     // set up POST request arguments
     String url =
         'https://union.ic.ac.uk/acc/football/android_connect/set_stats.php';
+    Map<String, String> headers = {"Content-type": "application/json"};
     String json = jsonEncode(playerUpdateLab);
     print(json);
     // make POST request
     http.Response response;
     try {
-      response = await http.post(url, body: json);
+      response = await http.post(url, headers: headers, body: json);
       if (response.statusCode == 200) {
         message = response.body.toString();
         if (response.body.toString() != 'Failed to set stats for players') {
@@ -42,10 +43,11 @@ class InternetAsync {
               }));
         }
       } else {
+        print(response.body);
         message = 'Cannot connect to server';
       }
     } catch (e) {
-      message = 'Cannot connect to server';
+      message = 'Cannot connect to server123';
     }
     if (message != "") {
       final snackBar =

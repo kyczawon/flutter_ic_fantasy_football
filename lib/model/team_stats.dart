@@ -21,8 +21,8 @@ class TeamStats {
   String _opponent = "";
   int _ICScore = 0;
   int _opponentScore = 0;
-  List<Player> _appAvailablePlayers = PlayerLab.get().players;
-  List<Player> _subAvailablePlayers = PlayerLab.get().players;
+  List<Player> _appAvailablePlayers = List.from(PlayerLab.get().players);
+  List<Player> _subAvailablePlayers = List.from(PlayerLab.get().players);
   List<List<Player>> _currentStats =
       List.generate(Stat.ownGoals.index + 1, (int index) => List());
   static TeamStats _teamStats;
@@ -64,7 +64,8 @@ class TeamStats {
 
   //remove appearance players from subs list
   setSubSelection() {
-    _subAvailablePlayers = PlayerLab.get().players;
+    _currentStats[Stat.subs.index] = List();
+    _subAvailablePlayers = List.from(PlayerLab.get().players);
     for (Player player in _currentStats[0]) {
       _subAvailablePlayers.remove(player);
     }
@@ -115,6 +116,7 @@ class TeamStats {
   void resetAll() {
     _currentStats =
         List.generate(Stat.ownGoals.index + 1, (int index) => List());
+    _appAvailablePlayers = List.from(PlayerLab.get().players);
   }
 
   bool get cleanSheet => _opponentScore == 0;

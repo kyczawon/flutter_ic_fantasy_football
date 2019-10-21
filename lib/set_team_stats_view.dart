@@ -26,7 +26,7 @@ class SetTeamStatsView extends StatefulWidget {
 }
 
 class _SetTeamStatsViewState extends State<SetTeamStatsView> {
-  bool _sortAsc = false;
+  bool _sortAsc = true;
   int _sortColumnIndex = 0;
   double _columnNameWidth = 60.0;
   double _columnWidth = 40;
@@ -44,6 +44,8 @@ class _SetTeamStatsViewState extends State<SetTeamStatsView> {
   void initState() {
     super.initState();
     _playersDataSource = PlayersDataSource(widget.currentStat, _rebuild);
+    _sort<String>((Player p) => p.firstName,
+        _sortColumnIndex, _sortAsc);
   }
 
   void _sort<T>(
@@ -69,6 +71,8 @@ class _SetTeamStatsViewState extends State<SetTeamStatsView> {
                       child: ListView(
                         children: <Widget>[
                           PaginatedDataTable(
+                            horizontalMargin: 20.0,
+                            columnSpacing: 30.0,
                             availableRowsPerPage: [50, 100, 200, 300],
                             rowsPerPage: _rowsPerPage,
                             onRowsPerPageChanged: (int value) {
@@ -197,7 +201,8 @@ class PlayersDataSource extends DataTableSource {
   PlayersDataSource(Stat stat, var fun)
       : _rebuild = fun,
         _currentStat = stat,
-        _players = TeamStats.get().getAvailablePlayers(stat);
+        _players = TeamStats.get().getAvailablePlayers(stat) {
+  }
 
   void _sort<T>(Comparable<T> getField(Player p), bool ascending) {
     _players.sort((Player a, Player b) {

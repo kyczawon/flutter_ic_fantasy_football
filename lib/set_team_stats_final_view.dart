@@ -24,8 +24,8 @@ class _SetTeamStatsFinalViewState extends State<SetTeamStatsFinalView> {
       const double _ICON_HEIGHT = 18.0;
 
       List<Widget> motm = List<Widget>.generate(
-          TeamStats.get().getStatPlayerCount(player, Stat.redCards),
-          (_) => Text("MOTM"));
+          TeamStats.get().getStatPlayerCount(player, Stat.motm),
+          (_) => Text("MOTM", style: TextStyle(color: Colors.blue)));
 
       List<Widget> goals = List<Widget>.generate(
           TeamStats.get().getStatPlayerCount(player, Stat.goals),
@@ -44,7 +44,7 @@ class _SetTeamStatsFinalViewState extends State<SetTeamStatsFinalView> {
       List<Widget> assists = List<Widget>.generate(
           TeamStats.get().getStatPlayerCount(player, Stat.assists),
           (_) => Image.asset(
-                "assets/football_red.png",
+                "assets/football_shoe.png",
                 height: _ICON_HEIGHT,
               ));
 
@@ -87,68 +87,69 @@ class _SetTeamStatsFinalViewState extends State<SetTeamStatsFinalView> {
         appBar: AppBar(
             title: Text("Set Team Stats Summary"),
             backgroundColor: Colors.blueAccent),
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              height: 30.0,
-              child: Container(
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text(
-                      "Appearances",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )),
-            ),
-            Expanded(
-              flex: 2,
-              child: ListView.builder(
-                  itemCount: _appearancePlayers.length,
-                  itemBuilder: (context, index) {
-                    Player player = _appearancePlayers[index];
-                    return ListTile(title: createPlayerSummary(player));
+        body: Builder(
+          builder: (context) => Column(
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                height: 30.0,
+                child: Container(
+                    color: Colors.blue,
+                    child: Center(
+                      child: Text(
+                        "Appearances",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )),
+              ),
+              Expanded(
+                flex: 2,
+                child: ListView.builder(
+                    itemCount: _appearancePlayers.length,
+                    itemBuilder: (context, index) {
+                      Player player = _appearancePlayers[index];
+                      return ListTile(title: createPlayerSummary(player));
+                    }),
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 30.0,
+                child: Container(
+                    color: Colors.blue,
+                    child: Center(
+                      child: Text(
+                        "Subs",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )),
+              ),
+              Expanded(
+                flex: 1,
+                child: ListView.builder(
+                    itemCount: _subPlayers.length,
+                    itemBuilder: (context, index) {
+                      Player player = _subPlayers[index];
+                      return ListTile(
+                        title: createPlayerSummary(player),
+                      );
+                    }),
+              ),
+              MaterialButton(
+                  height: 50.0,
+                  minWidth: double.infinity,
+                  color: Colors.blueAccent,
+                  splashColor: Colors.teal,
+                  textColor: Colors.white,
+                  child: Text("Submit Stats"),
+                  onPressed: () {
+                    _showDialog(context);
                   }),
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 30.0,
-              child: Container(
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text(
-                      "Subs",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )),
-            ),
-            Expanded(
-              flex: 1,
-              child: ListView.builder(
-                  itemCount: _subPlayers.length,
-                  itemBuilder: (context, index) {
-                    Player player = _subPlayers[index];
-                    return ListTile(
-                      title: createPlayerSummary(player),
-                    );
-                  }),
-            ),
-            MaterialButton(
-                height: 50.0,
-                minWidth: double.infinity,
-                color: Colors.blueAccent,
-                splashColor: Colors.teal,
-                textColor: Colors.white,
-                child: Text("Submit Stats"),
-                onPressed: () {
-                  _showDialog(context);
-                }),
-          ],
-        ));
+            ],
+        )));
   }
 
   // user defined function
-  void _showDialog(BuildContext context) {
+  void _showDialog(BuildContext parentContext) {
     Widget _submit = Text("Submit");
     // flutter defined function
     showDialog(
@@ -166,7 +167,7 @@ class _SetTeamStatsFinalViewState extends State<SetTeamStatsFinalView> {
                   setState(
                     () {
                       _submit = FutureBuilder<void>(
-                        future: InternetAsync().updatePlayerStats(context),
+                        future: InternetAsync().updatePlayerStats(parentContext),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {

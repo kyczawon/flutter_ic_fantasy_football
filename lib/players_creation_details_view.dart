@@ -74,6 +74,8 @@ class _PlayersCreationDetailsViewState extends State<PlayersCreationDetailsView>
         body: ListView(
           children: <Widget>[
             PaginatedDataTable(
+              columnSpacing: 1.0,
+              horizontalMargin: 1.0,
               availableRowsPerPage: [10,20,50],
               rowsPerPage: _rowsPerPage,
               onRowsPerPageChanged: (int value) { setState(() { _rowsPerPage = value; }); },
