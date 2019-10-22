@@ -133,6 +133,24 @@ class Player {
     _price = value;
   }
 
+  String get teamAsString {
+    String _suffix;
+    switch (team) {
+      case 1:
+        _suffix = 'st';
+        break;
+      case 2:
+        _suffix = 'nd';
+        break;
+      case 3:
+        _suffix = 'rd';
+        break;
+      default:
+            _suffix = 'th';
+    }
+    return _team.toString() + _suffix;
+  }
+
   int get team => _team;
 
   set team(int value) {

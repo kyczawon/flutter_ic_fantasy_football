@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:ic_fantasy_football/controller/player_lab.dart';
 import 'package:ic_fantasy_football/model/player.dart';
+import 'package:ic_fantasy_football/player_details_view.dart';
 
 class PlayersDetailsView extends StatefulWidget {
 
@@ -42,6 +43,7 @@ class _PlayersDetailsViewState extends State<PlayersDetailsView> {
   
   @override
   Widget build(BuildContext context) {
+    _playersDataSource.context = context;
     return Scaffold(
       body: ListView(
         children: <Widget>[
@@ -151,6 +153,8 @@ class _PlayersDetailsViewState extends State<PlayersDetailsView> {
 
 class PlayersDataSource extends DataTableSource {
 
+  BuildContext _context;
+
   void _sort<T>(Comparable<T> getField(Player p), bool ascending) {
     _players.sort((Player a, Player b) {
       if (!ascending) {
@@ -165,6 +169,11 @@ class PlayersDataSource extends DataTableSource {
     notifyListeners();
   }
 
+  PlayersDataSource();
+
+  set context(BuildContext value) {
+    _context = value;
+  }
 
   List<Player> _players = PlayerLab.get().players;
 
@@ -173,12 +182,18 @@ class PlayersDataSource extends DataTableSource {
   double _columnNameWidth  = 60.0;
 
 
-  DataCell getCell(String text) {
-    return DataCell(Container(width: _columnWidth, child: Text(text, overflow: TextOverflow.fade, softWrap: false,)));
+  DataCell getCell(String text, Player player) {
+    return DataCell(Container(width: _columnWidth, child: Text(text, overflow: TextOverflow.fade, softWrap: false,)),onTap: () {Navigator.push(_context,
+        MaterialPageRoute(builder: (BuildContext context) {
+          return PlayerDetailsView(player);
+        }));});
   }
 
-  DataCell getNameCell(String text) {
-    return DataCell(Container(width: _columnNameWidth, child: Text(text, overflow: TextOverflow.fade, softWrap: false,)));
+  DataCell getNameCell(String text, Player player) {
+    return DataCell(Container(width: _columnNameWidth, child: Text(text, overflow: TextOverflow.fade, softWrap: false,)), onTap: () {Navigator.push(_context,
+        MaterialPageRoute(builder: (BuildContext context) {
+          return PlayerDetailsView(player);
+        }));});
   }
 
 
@@ -191,23 +206,23 @@ class PlayersDataSource extends DataTableSource {
     return DataRow.byIndex(
         index: index,
         cells: <DataCell>[
-          getNameCell(player.firstName),
-          getNameCell(player.lastName),
-          getCell(player.position),
-          getCell('${player.price}'),
-          getCell('${player.team}'),
-          getCell('${player.points}'),
-          getCell('${player.pointsWeek}'),
-          getCell('${player.appearances}'),
-          getCell('${player.subAppearances}'),
-          getCell('${player.goals}'),
-          getCell('${player.assists}'),
-          getCell('${player.cleanSheets}'),
-          getCell('${player.motms}'),
-          getCell('${player.yellowCards}'),
-          getCell('${player.redCards}'),
-          getCell('${player.ownGoals}'),
-          getCell('${player.isFresher}'),
+          getNameCell(player.firstName, player),
+          getNameCell(player.lastName, player),
+          getCell(player.position, player),
+          getCell('${player.price}', player),
+          getCell('${player.team}', player),
+          getCell('${player.points}', player),
+          getCell('${player.pointsWeek}', player),
+          getCell('${player.appearances}', player),
+          getCell('${player.subAppearances}', player),
+          getCell('${player.goals}', player),
+          getCell('${player.assists}', player),
+          getCell('${player.cleanSheets}', player),
+          getCell('${player.motms}', player),
+          getCell('${player.yellowCards}', player),
+          getCell('${player.redCards}', player),
+          getCell('${player.ownGoals}', player),
+          getCell('${player.isFresher}', player),
         ]
     );
   }
