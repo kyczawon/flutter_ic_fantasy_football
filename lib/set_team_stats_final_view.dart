@@ -151,6 +151,7 @@ class _SetTeamStatsFinalViewState extends State<SetTeamStatsFinalView> {
   // user defined function
   void _showDialog(BuildContext parentContext) {
     Widget _submit = Text("Submit");
+    bool _isButtonEnabled = true; //disable the button to avoid duplicate submissions
     // flutter defined function
     showDialog(
       context: context,
@@ -164,21 +165,25 @@ class _SetTeamStatsFinalViewState extends State<SetTeamStatsFinalView> {
             FlatButton(
                 child: _submit,
                 onPressed: () {
-                  setState(
-                    () {
-                      _submit = FutureBuilder<void>(
-                        future: InternetAsync().updatePlayerStats(parentContext),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return Text("Submit");
-                          }
-                          // By default, show a loading spinner
-                          return CircularProgressIndicator();
-                        },
-                      );
-                    },
-                  );
+                  if (_isButtonEnabled) {
+                    _isButtonEnabled = false;
+                    setState(
+                          () {
+                        _submit = FutureBuilder<void>(
+                          future: InternetAsync().updatePlayerStats(parentContext),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              _isButtonEnabled = true;
+                              return Text("Submit");
+                            }
+                            // By default, show a loading spinner
+                            return CircularProgressIndicator();
+                          },
+                        );
+                      },
+                    );
+                  }
                 }),
             FlatButton(
               child: Text("I want to recheck"),
