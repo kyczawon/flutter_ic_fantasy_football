@@ -32,9 +32,9 @@ android {
         applicationId "uk.ac.ic.union.icfootballfantasy"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 2
-        versionName "2.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 10
+        versionName "2.0.1"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -58,6 +58,6 @@ flutter {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

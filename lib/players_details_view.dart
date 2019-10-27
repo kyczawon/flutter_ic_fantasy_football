@@ -18,7 +18,7 @@ class PlayersDetailsView extends StatefulWidget {
 }
 
 class _PlayersDetailsViewState extends State<PlayersDetailsView> {
-  bool _sortAsc = false;
+  bool _sortAsc = true;
   int _sortColumnIndex = 0;
   double _columnWidth  = 40.0;
   double _columnNameWidth  = 60.0;

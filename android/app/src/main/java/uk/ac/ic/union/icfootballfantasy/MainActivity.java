@@ -1,4 +1,4 @@
-package uk.ac.union.icfantasyfootball;
+package uk.ac.ic.union.icfootballfantasy;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
